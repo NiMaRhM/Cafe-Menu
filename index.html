@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="menu-header">
+  <h1>Cafe</h1>
+  <p>Fresh brews, fresh bites</p>
+</header>
+
+<main class="menu-container">
+
+  <section class="menu-category">
+    <h2>Coffee</h2>
+    <div class="menu-grid">
+
+      <div class="menu-item" data-name="Espresso" data-price="2.50">
+        <img src="https://via.placeholder.com/150" alt="Espresso">
+        <div class="item-info">
+          <h3>Espresso</h3>
+          <p class="desc">Strong and bold single shot</p>
+          <div class="item-footer">
+            <span class="price">€2.50</span>
+            <button class="add-btn">Add +</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Cappuccino" data-price="3.20">
+        <img src="https://via.placeholder.com/150" alt="Cappuccino">
+        <div class="item-info">
+          <h3>Cappuccino</h3>
+          <p class="desc">Espresso with steamed milk foam</p>
+          <div class="item-footer">
+            <span class="price">€3.20</span>
+            <button class="add-btn">Add +</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Latte" data-price="3.50">
+        <img src="https://via.placeholder.com/150" alt="Latte">
+        <div class="item-info">
+          <h3>Latte</h3>
+          <p class="desc">Smooth espresso with steamed milk</p>
+          <div class="item-footer">
+            <span class="price">€3.50</span>
+            <button class="add-btn">Add +</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="menu-category">
+    <h2>Pastries</h2>
+    <div class="menu-grid">
+
+      <div class="menu-item" data-name="Croissant" data-price="2.80">
+        <img src="https://via.placeholder.com/150" alt="Croissant">
+        <div class="item-info">
+          <h3>Croissant</h3>
+          <p class="desc">Buttery, flaky French classic</p>
+          <div class="item-footer">
+            <span class="price">€2.80</span>
+            <button class="add-btn">Add +</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Cheesecake" data-price="4.00">
+        <img src="https://via.placeholder.com/150" alt="Cheesecake">
+        <div class="item-info">
+          <h3>Cheesecake</h3>
+          <p class="desc">Creamy New York style slice</p>
+          <div class="item-footer">
+            <span class="price">€4.00</span>
+            <button class="add-btn">Add +</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="cart-bar" id="cartBar">
+  <span id="cartCount">0 items</span>
+  <span id="cartTotal">€0.00</span>
+  <button class="checkout-btn" id="checkoutBtn">Go to Order Page</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
