@@ -1,3 +1,97 @@
+const translations = {
+  fa: {
+    "page.title": "کافه",
+    "header.title": "کافه",
+    "header.subtitle": "قهوه تازه، خوراکی تازه",
+    "category.coffee": "قهوه",
+    "category.iced": "نوشیدنی‌های خنک",
+    "category.pastries": "شیرینی",
+    "item.espresso.name": "اسپرسو",
+    "item.espresso.desc": "یک شات اسپرسوی قوی",
+    "item.cappuccino.name": "کاپوچینو",
+    "item.cappuccino.desc": "اسپرسو همراه با کف شیر داغ",
+    "item.latte.name": "لته",
+    "item.latte.desc": "اسپرسوی یکدست همراه با شیر گرم",
+    "item.americano.name": "آمریکانو",
+    "item.americano.desc": "اسپرسو با آب داغ",
+    "item.icedlatte.name": "آیس لته",
+    "item.icedlatte.desc": "اسپرسوی سرد شده با شیر سرد و یخ",
+    "item.icedamericano.name": "آیس آمریکانو",
+    "item.icedamericano.desc": "اسپرسوی خنک با آب یخ",
+    "item.croissant.name": "کروسان",
+    "item.croissant.desc": "شیرینی کلاسیک فرانسوی، کره‌ای و لایه‌لایه",
+    "item.cheesecake.name": "چیزکیک",
+    "item.cheesecake.desc": "برش نیویورکی با بافت کرمی",
+    "btn.add": "افزودن +",
+    "btn.added": "افزوده شد ✓",
+    "btn.viewcart": "مشاهده سفارش",
+    "cart.items": "آیتم",
+    "cart.title": "سفارش شما",
+    "cart.empty": "سبد خرید شما خالی است.",
+    "cart.total": "جمع کل",
+    "btn.confirm": "تایید سفارش",
+    "cart.each": "هرکدام",
+    "alert.empty": "سبد خرید شما خالی است.",
+    "alert.confirmed": "سفارش شما ثبت شد!"
+  },
+  en: {
+    "page.title": "Cafe",
+    "header.title": "Cafe",
+    "header.subtitle": "Fresh brews, fresh bites",
+    "category.coffee": "Coffee",
+    "category.iced": "Iced Drinks",
+    "category.pastries": "Pastries",
+    "item.espresso.name": "Espresso",
+    "item.espresso.desc": "Strong and bold single shot",
+    "item.cappuccino.name": "Cappuccino",
+    "item.cappuccino.desc": "Espresso with steamed milk foam",
+    "item.latte.name": "Latte",
+    "item.latte.desc": "Smooth espresso with steamed milk",
+    "item.americano.name": "Americano",
+    "item.americano.desc": "Espresso with hot water",
+    "item.icedlatte.name": "Iced Latte",
+    "item.icedlatte.desc": "Chilled espresso with cold milk over ice",
+    "item.icedamericano.name": "Iced Americano",
+    "item.icedamericano.desc": "Cool and refreshing espresso with iced water",
+    "item.croissant.name": "Croissant",
+    "item.croissant.desc": "Buttery, flaky French classic",
+    "item.cheesecake.name": "Cheesecake",
+    "item.cheesecake.desc": "Creamy New York style slice",
+    "btn.add": "Add +",
+    "btn.added": "Added ✓",
+    "btn.viewcart": "View Cart",
+    "cart.items": "items",
+    "cart.title": "Your Order",
+    "cart.empty": "Your cart is empty.",
+    "cart.total": "Total",
+    "btn.confirm": "Confirm Order",
+    "cart.each": "each",
+    "alert.empty": "Your cart is empty.",
+    "alert.confirmed": "Order confirmed!"
+  }
+};
+
+let currentLang = localStorage.getItem('cafeLang') || 'fa';
+
+function t(key) {
+  return (translations[currentLang] && translations[currentLang][key]) || key;
+}
+
+function applyLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  document.getElementById('langBtn').textContent = lang === 'fa' ? 'EN' : 'FA';
+  localStorage.setItem('cafeLang', lang);
+  renderCartPanel();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   let cart = JSON.parse(localStorage.getItem('cafeCart')) || [];
 
@@ -11,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const emptyCartMsg = document.getElementById('emptyCartMsg');
   const cartPanelTotalEl = document.getElementById('cartPanelTotal');
   const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+  const langBtn = document.getElementById('langBtn');
 
   function saveCart() {
     localStorage.setItem('cafeCart', JSON.stringify(cart));
@@ -23,25 +118,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateCartBar() {
-    const t = getTotals();
-    cartCountEl.textContent = t.totalItems + ' item' + (t.totalItems !== 1 ? 's' : '');
-    cartTotalEl.textContent = '€' + t.totalPrice.toFixed(2);
+    const total = getTotals();
+    cartCountEl.innerHTML = total.totalItems + ' <span data-i18n="cart.items">' + t('cart.items') + '</span>';
+    cartTotalEl.textContent = '€' + total.totalPrice.toFixed(2);
   }
 
-  function renderCartPanel() {
+  window.renderCartPanel = function () {
     cartItemsEl.innerHTML = '';
 
     if (cart.length === 0) {
-      cartItemsEl.appendChild(emptyCartMsg);
-      emptyCartMsg.style.display = 'block';
+      const msg = document.createElement('p');
+      msg.className = 'empty-cart-msg';
+      msg.id = 'emptyCartMsg';
+      msg.setAttribute('data-i18n', 'cart.empty');
+      msg.textContent = t('cart.empty');
+      cartItemsEl.appendChild(msg);
     } else {
       cart.forEach(function (item, index) {
+        const nameKey = 'item.' + item.name.toLowerCase().replace(/\s+/g, '') + '.name';
+        const displayName = t(nameKey) !== nameKey ? t(nameKey) : item.name;
         const line = document.createElement('div');
         line.className = 'cart-line';
         line.innerHTML =
           '<div class="cart-line-info">' +
-            '<div class="cart-line-name">' + item.name + '</div>' +
-            '<div class="cart-line-price">€' + item.price.toFixed(2) + ' each</div>' +
+            '<div class="cart-line-name">' + displayName + '</div>' +
+            '<div class="cart-line-price">€' + item.price.toFixed(2) + ' ' + t('cart.each') + '</div>' +
           '</div>' +
           '<div class="cart-line-controls">' +
             '<button class="qty-btn minus-btn" data-index="' + index + '">-</button>' +
@@ -53,10 +154,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    const t = getTotals();
-    cartPanelTotalEl.textContent = '€' + t.totalPrice.toFixed(2);
+    const total = getTotals();
+    cartPanelTotalEl.textContent = '€' + total.totalPrice.toFixed(2);
     updateCartBar();
-  }
+  };
 
   function openCart() {
     cartOverlay.classList.add('active');
@@ -81,10 +182,10 @@ document.addEventListener('DOMContentLoaded', function () {
         cart.push({ name: name, price: price, qty: 1 });
       }
 
-      btn.textContent = 'Added ✓';
+      btn.textContent = t('btn.added');
       btn.classList.add('added');
       setTimeout(function () {
-        btn.textContent = 'Add +';
+        btn.textContent = t('btn.add');
         btn.classList.remove('added');
       }, 800);
 
@@ -122,12 +223,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   confirmOrderBtn.addEventListener('click', function () {
     if (cart.length === 0) {
-      alert('Your cart is empty.');
+      alert(t('alert.empty'));
       return;
     }
-    // Full order page will be linked here later, e.g. window.location.href = 'order.html';
-    alert('Order confirmed! (Full order page coming soon)');
+    alert(t('alert.confirmed'));
   });
 
+  langBtn.addEventListener('click', function () {
+    applyLanguage(currentLang === 'fa' ? 'en' : 'fa');
+  });
+
+  applyLanguage(currentLang);
   renderCartPanel();
 });
