@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateCartBar() {
     const t = getTotals();
-    cartCountEl.textContent = t.totalItems + ' item' + (t.totalItems !== 1 ? 's' : '');
+    cartCountEl.textContent = t.totalItems + ' آیتم' + (t.totalItems !== 1 ? '' : '');
     cartTotalEl.textContent = '€' + t.totalPrice.toFixed(2);
   }
 
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         line.innerHTML =
           '<div class="cart-line-info">' +
             '<div class="cart-line-name">' + item.name + '</div>' +
-            '<div class="cart-line-price">€' + item.price.toFixed(2) + ' each</div>' +
+            '<div class="cart-line-price">€' + item.price.toFixed(2) + '</div>' +
           '</div>' +
           '<div class="cart-line-controls">' +
             '<button class="qty-btn minus-btn" data-index="' + index + '">-</button>' +
