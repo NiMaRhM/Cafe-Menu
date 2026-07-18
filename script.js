@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const cartPanel = document.getElementById('cartPanel');
   const closeCartBtn = document.getElementById('closeCartBtn');
   const cartItemsEl = document.getElementById('cartItems');
-  const emptyCartMsg = document.getElementById('emptyCartMsg');
   const cartPanelTotalEl = document.getElementById('cartPanelTotal');
   const confirmOrderBtn = document.getElementById('confirmOrderBtn');
   const langBtn = document.getElementById('langBtn');
@@ -135,8 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
       cartItemsEl.appendChild(msg);
     } else {
       cart.forEach(function (item, index) {
-        const nameKey = 'item.' + item.name.toLowerCase().replace(/\s+/g, '') + '.name';
-        const displayName = t(nameKey) !== nameKey ? t(nameKey) : item.name;
+        const displayName = t('item.' + item.id + '.name');
         const line = document.createElement('div');
         line.className = 'cart-line';
         line.innerHTML =
@@ -172,14 +170,14 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.add-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       const item = btn.closest('.menu-item');
-      const name = item.dataset.name;
+      const id = item.dataset.id;
       const price = parseFloat(item.dataset.price);
 
-      const existing = cart.find(function (i) { return i.name === name; });
+      const existing = cart.find(function (i) { return i.id === id; });
       if (existing) {
         existing.qty += 1;
       } else {
-        cart.push({ name: name, price: price, qty: 1 });
+        cart.push({ id: id, price: price, qty: 1 });
       }
 
       btn.textContent = t('btn.added');
