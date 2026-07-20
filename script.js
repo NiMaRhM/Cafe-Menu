@@ -32,7 +32,8 @@ const translations = {
     "btn.confirm": "تایید سفارش",
     "cart.each": "هرکدام",
     "alert.empty": "سبد خرید شما خالی است.",
-    "alert.confirmed": "سفارش شما ثبت شد!"
+    "alert.confirmed": "سفارش شما ثبت شد!",
+    currency: "تومان",
   },
   en: {
     "page.title": "Cafe",
@@ -67,124 +68,158 @@ const translations = {
     "btn.confirm": "Confirm Order",
     "cart.each": "each",
     "alert.empty": "Your cart is empty.",
-    "alert.confirmed": "Order confirmed!"
-  }
+    "alert.confirmed": "Order confirmed!",
+    currency: "Toman",
+  },
 };
 
-let currentLang = localStorage.getItem('cafeLang') || 'fa';
+let currentLang = localStorage.getItem("cafeLang") || "fa";
 
 function t(key) {
   return (translations[currentLang] && translations[currentLang][key]) || key;
 }
 
+function formatPrice(amount) {
+  return amount.toLocaleString("en-US") + " " + t("currency");
+}
+
 function applyLanguage(lang) {
   currentLang = lang;
-  document.querySelectorAll('[data-i18n]').forEach(function (el) {
-    const key = el.getAttribute('data-i18n');
+  document.querySelectorAll("[data-i18n]").forEach(function (el) {
+    const key = el.getAttribute("data-i18n");
     if (translations[lang] && translations[lang][key]) {
       el.textContent = translations[lang][key];
     }
   });
+  document.querySelectorAll(".menu-item").forEach(function (item) {
+    const price = parseFloat(item.dataset.price);
+    const priceEl = item.querySelector(".price");
+    if (priceEl) priceEl.textContent = formatPrice(price);
+  });
   document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
-  document.getElementById('langBtn').textContent = lang === 'fa' ? 'EN' : 'FA';
-  localStorage.setItem('cafeLang', lang);
+  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
+  document.getElementById("langBtn").textContent = lang === "fa" ? "EN" : "FA";
+  localStorage.setItem("cafeLang", lang);
   renderCartPanel();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  let cart = JSON.parse(localStorage.getItem('cafeCart')) || [];
+document.addEventListener("DOMContentLoaded", function () {
+  let cart = JSON.parse(localStorage.getItem("cafeCart")) || [];
 
-  const cartCountEl = document.getElementById('cartCount');
-  const cartTotalEl = document.getElementById('cartTotal');
-  const checkoutBtn = document.getElementById('checkoutBtn');
-  const cartOverlay = document.getElementById('cartOverlay');
-  const cartPanel = document.getElementById('cartPanel');
-  const closeCartBtn = document.getElementById('closeCartBtn');
-  const cartItemsEl = document.getElementById('cartItems');
-  const cartPanelTotalEl = document.getElementById('cartPanelTotal');
-  const confirmOrderBtn = document.getElementById('confirmOrderBtn');
-  const langBtn = document.getElementById('langBtn');
+  const cartCountEl = document.getElementById("cartCount");
+  const cartTotalEl = document.getElementById("cartTotal");
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  const cartOverlay = document.getElementById("cartOverlay");
+  const cartPanel = document.getElementById("cartPanel");
+  const closeCartBtn = document.getElementById("closeCartBtn");
+  const cartItemsEl = document.getElementById("cartItems");
+  const cartPanelTotalEl = document.getElementById("cartPanelTotal");
+  const confirmOrderBtn = document.getElementById("confirmOrderBtn");
+  const langBtn = document.getElementById("langBtn");
 
   function saveCart() {
-    localStorage.setItem('cafeCart', JSON.stringify(cart));
+    localStorage.setItem("cafeCart", JSON.stringify(cart));
   }
 
   function getTotals() {
-    const totalItems = cart.reduce(function (sum, i) { return sum + i.qty; }, 0);
-    const totalPrice = cart.reduce(function (sum, i) { return sum + i.qty * i.price; }, 0);
+    const totalItems = cart.reduce(function (sum, i) {
+      return sum + i.qty;
+    }, 0);
+    const totalPrice = cart.reduce(function (sum, i) {
+      return sum + i.qty * i.price;
+    }, 0);
     return { totalItems: totalItems, totalPrice: totalPrice };
   }
 
   function updateCartBar() {
     const total = getTotals();
-    cartCountEl.innerHTML = total.totalItems + ' <span data-i18n="cart.items">' + t('cart.items') + '</span>';
-    cartTotalEl.textContent = '€' + total.totalPrice.toFixed(2);
+    cartCountEl.innerHTML =
+      total.totalItems +
+      ' <span data-i18n="cart.items">' +
+      t("cart.items") +
+      "</span>";
+    cartTotalEl.textContent = formatPrice(total.totalPrice);
   }
 
   window.renderCartPanel = function () {
-    cartItemsEl.innerHTML = '';
+    cartItemsEl.innerHTML = "";
 
     if (cart.length === 0) {
-      const msg = document.createElement('p');
-      msg.className = 'empty-cart-msg';
-      msg.id = 'emptyCartMsg';
-      msg.setAttribute('data-i18n', 'cart.empty');
-      msg.textContent = t('cart.empty');
+      const msg = document.createElement("p");
+      msg.className = "empty-cart-msg";
+      msg.id = "emptyCartMsg";
+      msg.setAttribute("data-i18n", "cart.empty");
+      msg.textContent = t("cart.empty");
       cartItemsEl.appendChild(msg);
     } else {
       cart.forEach(function (item, index) {
-        const displayName = t('item.' + item.id + '.name');
-        const line = document.createElement('div');
-        line.className = 'cart-line';
+        const displayName = t("item." + item.id + ".name");
+        const line = document.createElement("div");
+        line.className = "cart-line";
         line.innerHTML =
           '<div class="cart-line-info">' +
-            '<div class="cart-line-name">' + displayName + '</div>' +
-            '<div class="cart-line-price">€' + item.price.toFixed(2) + ' ' + t('cart.each') + '</div>' +
-          '</div>' +
+          '<div class="cart-line-name">' +
+          displayName +
+          "</div>" +
+          '<div class="cart-line-price">' +
+          formatPrice(item.price) +
+          " " +
+          t("cart.each") +
+          "</div>" +
+          "</div>" +
           '<div class="cart-line-controls">' +
-            '<button class="qty-btn minus-btn" data-index="' + index + '">-</button>' +
-            '<span class="qty-value">' + item.qty + '</span>' +
-            '<button class="qty-btn plus-btn" data-index="' + index + '">+</button>' +
-            '<button class="remove-btn" data-index="' + index + '" title="Remove">&#128465;</button>' +
-          '</div>';
+          '<button class="qty-btn minus-btn" data-index="' +
+          index +
+          '">-</button>' +
+          '<span class="qty-value">' +
+          item.qty +
+          "</span>" +
+          '<button class="qty-btn plus-btn" data-index="' +
+          index +
+          '">+</button>' +
+          '<button class="remove-btn" data-index="' +
+          index +
+          '" title="Remove">&#128465;</button>' +
+          "</div>";
         cartItemsEl.appendChild(line);
       });
     }
 
     const total = getTotals();
-    cartPanelTotalEl.textContent = '€' + total.totalPrice.toFixed(2);
+    cartPanelTotalEl.textContent = formatPrice(total.totalPrice);
     updateCartBar();
   };
 
   function openCart() {
-    cartOverlay.classList.add('active');
-    cartPanel.classList.add('open');
+    cartOverlay.classList.add("active");
+    cartPanel.classList.add("open");
   }
 
   function closeCart() {
-    cartOverlay.classList.remove('active');
-    cartPanel.classList.remove('open');
+    cartOverlay.classList.remove("active");
+    cartPanel.classList.remove("open");
   }
 
-  document.querySelectorAll('.add-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const item = btn.closest('.menu-item');
+  document.querySelectorAll(".add-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const item = btn.closest(".menu-item");
       const id = item.dataset.id;
       const price = parseFloat(item.dataset.price);
 
-      const existing = cart.find(function (i) { return i.id === id; });
+      const existing = cart.find(function (i) {
+        return i.id === id;
+      });
       if (existing) {
         existing.qty += 1;
       } else {
         cart.push({ id: id, price: price, qty: 1 });
       }
 
-      btn.textContent = t('btn.added');
-      btn.classList.add('added');
+      btn.textContent = t("btn.added");
+      btn.classList.add("added");
       setTimeout(function () {
-        btn.textContent = t('btn.add');
-        btn.classList.remove('added');
+        btn.textContent = t("btn.add");
+        btn.classList.remove("added");
       }, 800);
 
       saveCart();
@@ -192,20 +227,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  cartItemsEl.addEventListener('click', function (e) {
+  cartItemsEl.addEventListener("click", function (e) {
     const target = e.target;
     const index = target.dataset.index;
     if (index === undefined) return;
     const idx = parseInt(index, 10);
 
-    if (target.classList.contains('plus-btn')) {
+    if (target.classList.contains("plus-btn")) {
       cart[idx].qty += 1;
-    } else if (target.classList.contains('minus-btn')) {
+    } else if (target.classList.contains("minus-btn")) {
       cart[idx].qty -= 1;
       if (cart[idx].qty <= 0) {
         cart.splice(idx, 1);
       }
-    } else if (target.classList.contains('remove-btn')) {
+    } else if (target.classList.contains("remove-btn")) {
       cart.splice(idx, 1);
     } else {
       return;
@@ -215,20 +250,20 @@ document.addEventListener('DOMContentLoaded', function () {
     renderCartPanel();
   });
 
-  checkoutBtn.addEventListener('click', openCart);
-  closeCartBtn.addEventListener('click', closeCart);
-  cartOverlay.addEventListener('click', closeCart);
+  checkoutBtn.addEventListener("click", openCart);
+  closeCartBtn.addEventListener("click", closeCart);
+  cartOverlay.addEventListener("click", closeCart);
 
-  confirmOrderBtn.addEventListener('click', function () {
+  confirmOrderBtn.addEventListener("click", function () {
     if (cart.length === 0) {
-      alert(t('alert.empty'));
+      alert(t("alert.empty"));
       return;
     }
-    alert(t('alert.confirmed'));
+    alert(t("alert.confirmed"));
   });
 
-  langBtn.addEventListener('click', function () {
-    applyLanguage(currentLang === 'fa' ? 'en' : 'fa');
+  langBtn.addEventListener("click", function () {
+    applyLanguage(currentLang === "fa" ? "en" : "fa");
   });
 
   applyLanguage(currentLang);

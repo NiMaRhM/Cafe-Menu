@@ -1,169 +1,226 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="page.title">کافه</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="page.title">کافه</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="menu-header">
+      <div class="menu-header-text">
+        <h1 data-i18n="header.title">کافه</h1>
+        <p data-i18n="header.subtitle">قهوه تازه، خوراکی تازه</p>
+      </div>
+      <button class="lang-btn" id="langBtn">EN</button>
+    </header>
 
-<header class="menu-header">
-  <div class="menu-header-text">
-    <h1 data-i18n="header.title">کافه</h1>
-    <p data-i18n="header.subtitle">قهوه تازه، خوراکی تازه</p>
-  </div>
-  <button class="lang-btn" id="langBtn">EN</button>
-</header>
+    <main class="menu-container">
+      <section class="menu-category">
+        <h2 data-i18n="category.coffee">قهوه</h2>
+        <div class="menu-grid">
+          <div
+            class="menu-item"
+            data-id="espresso"
+            data-name="Espresso"
+            data-price="120000"
+          >
+            <img src="images/Espresso.jpg" alt="Espresso" />
+            <div class="item-info">
+              <h3 data-i18n="item.espresso.name">اسپرسو</h3>
+              <p class="desc" data-i18n="item.espresso.desc">
+                یک شات اسپرسوی قوی
+              </p>
+              <div class="item-footer">
+                <span class="price">120,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
+          </div>
 
-<main class="menu-container">
+          <div
+            class="menu-item"
+            data-id="cappuccino"
+            data-name="Cappuccino"
+            data-price="160000"
+          >
+            <img src="images/Cappuccino.jpg" alt="Cappuccino" />
+            <div class="item-info">
+              <h3 data-i18n="item.cappuccino.name">کاپوچینو</h3>
+              <p class="desc" data-i18n="item.cappuccino.desc">
+                اسپرسو همراه با کف شیر داغ
+              </p>
+              <div class="item-footer">
+                <span class="price">160,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
+          </div>
 
-  <section class="menu-category">
-    <h2 data-i18n="category.coffee">قهوه</h2>
-    <div class="menu-grid">
+          <div
+            class="menu-item"
+            data-id="latte"
+            data-name="Latte"
+            data-price="160000"
+          >
+            <img src="images/Latte.jpg" alt="Latte" />
+            <div class="item-info">
+              <h3 data-i18n="item.latte.name">لته</h3>
+              <p class="desc" data-i18n="item.latte.desc">
+                اسپرسوی یکدست همراه با شیر گرم
+              </p>
+              <div class="item-footer">
+                <span class="price">160,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
+          </div>
 
-      <div class="menu-item" data-id="espresso" data-name="Espresso" data-price="2.50">
-        <img src="images/Espresso.jpg" alt="Espresso">
-        <div class="item-info">
-          <h3 data-i18n="item.espresso.name">اسپرسو</h3>
-          <p class="desc" data-i18n="item.espresso.desc">یک شات اسپرسوی قوی</p>
-          <div class="item-footer">
-            <span class="price">€2.50</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+          <div
+            class="menu-item"
+            data-id="americano"
+            data-name="Americano"
+            data-price="150000"
+          >
+            <img src="images/Americano.jpg" alt="Americano" />
+            <div class="item-info">
+              <h3 data-i18n="item.americano.name">آمریکانو</h3>
+              <p class="desc" data-i18n="item.americano.desc">
+                اسپرسو با آب داغ
+              </p>
+              <div class="item-footer">
+                <span class="price">150,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="menu-item" data-id="cappuccino" data-name="Cappuccino" data-price="3.20">
-        <img src="images/Cappuccino.jpg" alt="Cappuccino">
-        <div class="item-info">
-          <h3 data-i18n="item.cappuccino.name">کاپوچینو</h3>
-          <p class="desc" data-i18n="item.cappuccino.desc">اسپرسو همراه با کف شیر داغ</p>
-          <div class="item-footer">
-            <span class="price">€3.20</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+      <section class="menu-category">
+        <h2 data-i18n="category.iced">نوشیدنی‌های خنک</h2>
+        <div class="menu-grid">
+          <div
+            class="menu-item"
+            data-id="icedlatte"
+            data-name="Iced Latte"
+            data-price="150000"
+          >
+            <img src="images/IcedLatte.jpg" alt="Iced Latte" />
+            <div class="item-info">
+              <h3 data-i18n="item.icedlatte.name">آیس لته</h3>
+              <p class="desc" data-i18n="item.icedlatte.desc">
+                اسپرسوی سرد شده با شیر سرد و یخ
+              </p>
+              <div class="item-footer">
+                <span class="price">150,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-item"
+            data-id="icedamericano"
+            data-name="Iced Americano"
+            data-price="120000"
+          >
+            <img src="images/IcedAmericano.jpg" alt="Iced Americano" />
+            <div class="item-info">
+              <h3 data-i18n="item.icedamericano.name">آیس آمریکانو</h3>
+              <p class="desc" data-i18n="item.icedamericano.desc">
+                اسپرسوی خنک با آب یخ
+              </p>
+              <div class="item-footer">
+                <span class="price">120,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="menu-item" data-id="latte" data-name="Latte" data-price="3.50">
-        <img src="images/Latte.jpg" alt="Latte">
-        <div class="item-info">
-          <h3 data-i18n="item.latte.name">لته</h3>
-          <p class="desc" data-i18n="item.latte.desc">اسپرسوی یکدست همراه با شیر گرم</p>
-          <div class="item-footer">
-            <span class="price">€3.50</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+      <section class="menu-category">
+        <h2 data-i18n="category.pastries">شیرینی</h2>
+        <div class="menu-grid">
+          <div
+            class="menu-item"
+            data-id="croissant"
+            data-name="Croissant"
+            data-price="250000"
+          >
+            <img src="images/Croissant.jpg" alt="Croissant" />
+            <div class="item-info">
+              <h3 data-i18n="item.croissant.name">کروسان</h3>
+              <p class="desc" data-i18n="item.croissant.desc">
+                شیرینی کلاسیک فرانسوی، کره‌ای و لایه‌لایه
+              </p>
+              <div class="item-footer">
+                <span class="price">250,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-item"
+            data-id="cheesecake"
+            data-name="Cheesecake"
+            data-price="230000"
+          >
+            <img src="images/Cheesecake.jpg" alt="Cheesecake" />
+            <div class="item-info">
+              <h3 data-i18n="item.cheesecake.name">چیزکیک</h3>
+              <p class="desc" data-i18n="item.cheesecake.desc">
+                برش نیویورکی با بافت کرمی
+              </p>
+              <div class="item-footer">
+                <span class="price">230,000 تومن</span>
+                <button class="add-btn" data-i18n="btn.add">افزودن +</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+    </main>
 
-      <div class="menu-item" data-id="americano" data-name="Americano" data-price="2.80">
-        <img src="images/Americano.jpg" alt="Americano">
-        <div class="item-info">
-          <h3 data-i18n="item.americano.name">آمریکانو</h3>
-          <p class="desc" data-i18n="item.americano.desc">اسپرسو با آب داغ</p>
-          <div class="item-footer">
-            <span class="price">€2.80</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
-          </div>
-        </div>
-      </div>
-
+    <div class="cart-bar" id="cartBar">
+      <span id="cartCount">0 <span data-i18n="cart.items">آیتم</span></span>
+      <span id="cartTotal">0 تومن</span>
+      <button class="checkout-btn" id="checkoutBtn" data-i18n="btn.viewcart">
+        مشاهده سفارش
+      </button>
     </div>
-  </section>
 
-  <section class="menu-category">
-    <h2 data-i18n="category.iced">نوشیدنی‌های خنک</h2>
-    <div class="menu-grid">
+    <div class="cart-overlay" id="cartOverlay"></div>
 
-      <div class="menu-item" data-id="icedlatte" data-name="Iced Latte" data-price="4.00">
-        <img src="images/IcedLatte.jpg" alt="Iced Latte">
-        <div class="item-info">
-          <h3 data-i18n="item.icedlatte.name">آیس لته</h3>
-          <p class="desc" data-i18n="item.icedlatte.desc">اسپرسوی سرد شده با شیر سرد و یخ</p>
-          <div class="item-footer">
-            <span class="price">€4.00</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
-          </div>
-        </div>
+    <aside class="cart-panel" id="cartPanel">
+      <div class="cart-panel-header">
+        <h2 data-i18n="cart.title">سفارش شما</h2>
+        <button class="close-cart-btn" id="closeCartBtn">&times;</button>
       </div>
 
-      <div class="menu-item" data-id="icedamericano" data-name="Iced Americano" data-price="3.20">
-        <img src="images/IcedAmericano.jpg" alt="Iced Americano">
-        <div class="item-info">
-          <h3 data-i18n="item.icedamericano.name">آیس آمریکانو</h3>
-          <p class="desc" data-i18n="item.icedamericano.desc">اسپرسوی خنک با آب یخ</p>
-          <div class="item-footer">
-            <span class="price">€3.20</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
-          </div>
-        </div>
+      <div class="cart-items" id="cartItems">
+        <p class="empty-cart-msg" id="emptyCartMsg" data-i18n="cart.empty">
+          سبد خرید شما خالی است.
+        </p>
       </div>
 
-    </div>
-  </section>
-
-  <section class="menu-category">
-    <h2 data-i18n="category.pastries">شیرینی</h2>
-    <div class="menu-grid">
-
-      <div class="menu-item" data-id="croissant" data-name="Croissant" data-price="2.80">
-        <img src="images/Croissant.jpg" alt="Croissant">
-        <div class="item-info">
-          <h3 data-i18n="item.croissant.name">کروسان</h3>
-          <p class="desc" data-i18n="item.croissant.desc">شیرینی کلاسیک فرانسوی، کره‌ای و لایه‌لایه</p>
-          <div class="item-footer">
-            <span class="price">€2.80</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
-          </div>
+      <div class="cart-panel-footer">
+        <div class="cart-panel-total">
+          <span data-i18n="cart.total">جمع کل</span>
+          <span id="cartPanelTotal">0 تومن</span>
         </div>
+        <button
+          class="confirm-order-btn"
+          id="confirmOrderBtn"
+          data-i18n="btn.confirm"
+        >
+          تایید سفارش
+        </button>
       </div>
+    </aside>
 
-      <div class="menu-item" data-id="cheesecake" data-name="Cheesecake" data-price="4.00">
-        <img src="images/Cheesecake.jpg" alt="Cheesecake">
-        <div class="item-info">
-          <h3 data-i18n="item.cheesecake.name">چیزکیک</h3>
-          <p class="desc" data-i18n="item.cheesecake.desc">برش نیویورکی با بافت کرمی</p>
-          <div class="item-footer">
-            <span class="price">€4.00</span>
-            <button class="add-btn" data-i18n="btn.add">افزودن +</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-</main>
-
-<div class="cart-bar" id="cartBar">
-  <span id="cartCount">0 <span data-i18n="cart.items">آیتم</span></span>
-  <span id="cartTotal">€0.00</span>
-  <button class="checkout-btn" id="checkoutBtn" data-i18n="btn.viewcart">مشاهده سفارش</button>
-</div>
-
-<div class="cart-overlay" id="cartOverlay"></div>
-
-<aside class="cart-panel" id="cartPanel">
-  <div class="cart-panel-header">
-    <h2 data-i18n="cart.title">سفارش شما</h2>
-    <button class="close-cart-btn" id="closeCartBtn">&times;</button>
-  </div>
-
-  <div class="cart-items" id="cartItems">
-    <p class="empty-cart-msg" id="emptyCartMsg" data-i18n="cart.empty">سبد خرید شما خالی است.</p>
-  </div>
-
-  <div class="cart-panel-footer">
-    <div class="cart-panel-total">
-      <span data-i18n="cart.total">جمع کل</span>
-      <span id="cartPanelTotal">€0.00</span>
-    </div>
-    <button class="confirm-order-btn" id="confirmOrderBtn" data-i18n="btn.confirm">تایید سفارش</button>
-  </div>
-</aside>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
